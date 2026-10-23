@@ -1,0 +1,1 @@
+{"name": "Spec Breakdown", "slug": "camflow-spec-breakdown", "kind": "camflow", "description": "Turns a feature specification into sized, ordered child tasks with testable acceptance criteria.", "version": "1.0.0", "priceMinor": 0, "currency": "USD", "include": ["camflow.yaml"]}
