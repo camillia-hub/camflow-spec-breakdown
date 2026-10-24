@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Validates camflow.yaml for the Camillia Community Hub and enforces the
-// anti-collision placement contract: hub.json declares the extension id and
+// anti-collision placement contract: extension.json declares the extension id and
 // the camflow payload is exactly one fixed-name camflow.yaml.
 // Zero-dependency text checks only (no YAML library allowed).
 
@@ -18,20 +18,20 @@ const KEBAB_ID = /^[a-z0-9](-?[a-z0-9]){2,39}$/;
 
 let hub;
 try {
-  hub = JSON.parse(readFileSync(join(here, '..', 'hub.json'), 'utf8'));
+  hub = JSON.parse(readFileSync(join(here, '..', 'extension.json'), 'utf8'));
 } catch {
-  fail('hub.json is missing or not valid JSON');
+  fail('extension.json is missing or not valid JSON');
 }
 const id = hub.id;
 if (typeof id !== 'string' || !KEBAB_ID.test(id)) {
-  fail("hub.json must declare a unique kebab-case extension 'id'");
+  fail("extension.json must declare a unique kebab-case extension 'id'");
 }
 if (hub.kind !== 'camflow') {
-  fail(`hub.json kind must be 'camflow' (found '${hub.kind}')`);
+  fail(`extension.json kind must be 'camflow' (found '${hub.kind}')`);
 }
 const include = Array.isArray(hub.include) ? hub.include : [];
 if (include.length !== 1 || include[0] !== 'camflow.yaml') {
-  fail("hub.json must publish exactly ['camflow.yaml']; a camflow carries one fixed-name file");
+  fail("extension.json must publish exactly ['camflow.yaml']; a camflow carries one fixed-name file");
 }
 
 const camflowPath = join(here, '..', 'camflow.yaml');
